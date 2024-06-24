@@ -1,0 +1,8 @@
+destinations:
+- auto_trigger_pipeline: true
+  name: media/cloud/sysops
+  ref: main
+  service_name: youtube
+  service_type:
+  - nextjs
+  url: https://gitlab.ugaming.io/media/cloud/sysops

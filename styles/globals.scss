@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    background: hsl(var(--color-background));
+    color: hsl(var(--color-foreground));
+    font-size: 16px;
+  }
+  // POPOVER
+  div[data-radix-popper-content-wrapper] {
+    z-index: var(--zDropdown) !important;
+  }
+
+  .swiper-container-free-mode > .swiper-wrapper {
+    transition-timing-function: linear;
+  }
+}

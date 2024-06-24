@@ -1,0 +1,31 @@
+{
+  "ShopCreate": {
+    "title": "Tạo cửa hàng",
+    "create_button": "Tạo cửa hàng",
+    "field_shop_name": "Tên cửa hàng",
+    "field_username": "Tài khoản",
+    "field_password": "Mật khẩu",
+    "field_confirm_password": "Nhập lại mật khẩu"
+  },
+  "Dashboard": {
+    "SlideBar": {
+      "tab_overview": "Tổng quan",
+      "tab_products": "Danh sách sản phẩm",
+      "tab_invite": "Lời mời"
+    }
+  },
+  "ShopLogin": {
+    "title": "Đăng nhập"
+  },
+  "General": {
+    "Metadata": {
+      "title": "Web name · Make your Life more Exciting",
+      "description": "Web name brings new colors into your life",
+      "keywords": ""
+    },
+    "Errors": {
+      "confirm_password_not_match": "Mật khẩu xác nhận không khớp",
+      "field_required": "Trường này không được để trống"
+    }
+  }
+}

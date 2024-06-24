@@ -1,0 +1,9 @@
+include:
+- file: /templates/nextjs-release.gitlab-ci.yml
+  project: marketplace/cicd
+  ref: $SCRIPT_VERSION
+
+variables:
+  SERVICE: "youtube"                # (required)
+  # RELEASE_TYPE: "patch"           # (optional) default is "patch"
+  # AUTO_RELEASE: "true"            # (optional) default is "true"

@@ -1,0 +1,16 @@
+{
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^styles/(.*)$",
+    "^(@media2am|styles|types|components|configs|constant|hooks|lib|proto|public|scripts|services|stories|views)/(.*)$",
+    "^mocks/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "tabWidth": 2,
+  "printWidth": 120,
+  "trailingComma": "all",
+  "singleQuote": false,
+  "semi": false
+}
