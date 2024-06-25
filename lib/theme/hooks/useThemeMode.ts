@@ -1,7 +1,7 @@
-import { THEME_CONSTANT } from "constants/common"
+import { Themes } from "@lib/theme/constants"
 import { useTheme } from "next-themes"
 
-export type ThemeValueType = (typeof THEME_CONSTANT)[keyof typeof THEME_CONSTANT]
+export type ThemeValueType = (typeof Themes)[keyof typeof Themes]
 
 const useThemeMode = () => {
   const { theme, setTheme } = useTheme()
@@ -11,12 +11,12 @@ const useThemeMode = () => {
     setTheme: setTheme as (theme: ThemeValueType) => void,
     toggleTheme: () => {
       switch (theme) {
-        case THEME_CONSTANT.light: {
-          setTheme(THEME_CONSTANT.dark)
+        case Themes.light: {
+          setTheme(Themes.dark)
           break
         }
         default: {
-          setTheme(THEME_CONSTANT.light)
+          setTheme(Themes.light)
           break
         }
       }

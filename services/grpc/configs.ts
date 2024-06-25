@@ -2,8 +2,8 @@ import { createGrpcWebTransport as createGrpcServerTransport } from "@bufbuild/c
 import { createGrpcWebTransport as createGrpcBrowserTransport } from "@bufbuild/connect-web"
 import { MethodInfoUnary, PartialMessage, PlainMessage, ServiceType, toPlainMessage } from "@bufbuild/protobuf"
 import { CallOptions, ConnectError, Interceptor } from "@connectrpc/connect"
-import CONFIGS from "configs"
 import { getCookie } from "cookies-next"
+import ENV_CONFIGS from "envs"
 
 import { isServer } from "lib/utils/nextjs-utils"
 import storage from "services/storage"
@@ -26,7 +26,7 @@ export interface ErrorHandler {
 }
 
 export const createTransport = () => {
-  const baseUrl = CONFIGS.GRPC_SERVER
+  const baseUrl = ENV_CONFIGS.GRPC_SERVER
   return isServer()
     ? createGrpcServerTransport({ baseUrl, httpVersion: "1.1", interceptors: [setToken] })
     : createGrpcBrowserTransport({ baseUrl, interceptors: [setToken, logger] })

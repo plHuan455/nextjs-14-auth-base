@@ -1,4 +1,4 @@
-import { LOCALES } from "constants/locale"
+import { LOCALES } from "@lib/i18/constants"
 import { Pathnames } from "next-intl/navigation"
 import { getRequestConfig } from "next-intl/server"
 import { notFound } from "next/navigation"

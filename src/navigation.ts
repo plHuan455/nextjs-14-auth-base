@@ -1,4 +1,4 @@
-import { LOCALES } from "constants/locale"
+import { LOCALES } from "@lib/i18/constants"
 import { createLocalizedPathnamesNavigation } from "next-intl/navigation"
 
 import { localePrefix, pathnames } from "./i18n"

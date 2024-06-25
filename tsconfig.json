@@ -23,6 +23,7 @@
     "paths": {
       "@comp/*": ["./components/*"],
       "@views/*": ["./views/*"],
+      "@lib/*": ["./lib/*"],
       "@api/*": ["./api/*"],
       "@constants/*": ["./constants/*"],
       "@layouts/*": ["./layouts"],

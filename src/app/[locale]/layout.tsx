@@ -1,9 +1,8 @@
 import JotaiProvider from "@comp/templates/jotai-provider"
-import ThemeProviderBase from "@comp/templates/theme-provider"
-import { LOCALE_CONSTANTS } from "constants/locale"
-import { NextIntlClientProvider, useMessages } from "next-intl"
+import ThemeProviderBase from "@lib/theme/provider"
 
 import QueryClientWrapper from "components/templates/query-client-wrapper"
+import I18Provider from "lib/i18/provider"
 
 import "../../../styles/index.scss"
 
@@ -12,16 +11,15 @@ interface RootLayoutProps {
   locale: never
 }
 export default function RootLayout({ children, locale }: RootLayoutProps) {
-  const messages = useMessages()
   return (
-    <html lang={locale || LOCALE_CONSTANTS.vi} className={`font-sans`}>
+    <html lang={locale} className={`font-sans`} suppressHydrationWarning>
       <body>
         <ThemeProviderBase>
-          <NextIntlClientProvider locale={locale} messages={messages}>
+          <I18Provider locale={locale}>
             <QueryClientWrapper>
               <JotaiProvider>{children}</JotaiProvider>
             </QueryClientWrapper>
-          </NextIntlClientProvider>
+          </I18Provider>
         </ThemeProviderBase>
       </body>
     </html>

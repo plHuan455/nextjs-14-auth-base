@@ -1,4 +1,4 @@
-import CONFIGS from "configs"
+import ENV_CONFIGS from "envs"
 
 export const IMAGE_ORIGIN = {
   cloud: "cloud",
@@ -26,7 +26,7 @@ export const formatImageUrl = (src: string, options?: { origin?: ImageOriginType
       return src
     }
     case IMAGE_ORIGIN.cloud: {
-      return `${CONFIGS.MEDIA_BASE}/${src}`
+      return `${ENV_CONFIGS.MEDIA_BASE}/${src}`
     }
     default: {
       return src
@@ -36,7 +36,7 @@ export const formatImageUrl = (src: string, options?: { origin?: ImageOriginType
 
 // RESIZE IMAGE
 export const myImageLoader = ({ src, width, quality }) => {
-  return `${CONFIGS.DOMAIN}/cdn-cgi/image/w=${width},q=${quality || 90},format=webp/${src}`
+  return `${ENV_CONFIGS.DOMAIN}/cdn-cgi/image/w=${width},q=${quality || 90},format=webp/${src}`
 }
 
 // OLD
@@ -45,7 +45,7 @@ export const generateImageUrl = (src: string, origin: "auto" | "cloud" | "intern
 
   switch (origin) {
     case "cloud":
-      return `${CONFIGS.MEDIA_BASE}/${src}`
+      return `${ENV_CONFIGS.MEDIA_BASE}/${src}`
     case "internal":
       return `/images${src.replace(/^\/images/g, "")}`
     case "auto": {
@@ -56,7 +56,7 @@ export const generateImageUrl = (src: string, origin: "auto" | "cloud" | "intern
       if (src.match(/^\/.+/g)) return `/images${src.replace(/^\/images/g, "")}`
 
       // from cloud
-      if (src.match(/^candy\/image\/.+/)) return `${CONFIGS.MEDIA_BASE}/${src}`
+      if (src.match(/^candy\/image\/.+/)) return `${ENV_CONFIGS.MEDIA_BASE}/${src}`
 
       return src
     }

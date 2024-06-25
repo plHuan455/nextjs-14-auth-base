@@ -1,4 +1,4 @@
-const CONFIGS = {
+const ENV_CONFIGS = {
   DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
   RESIZE_IMAGE: process.env.NEXT_PUBLIC_RESIZE_IMAGE, // NEXTJS | CLOUDFLARE | NONE
   MEDIA_BASE: process.env.NEXT_PUBLIC_MEDIA_BASE,
@@ -6,4 +6,4 @@ const CONFIGS = {
   USE_INTERNAL_DOMAIN: process.env.NEXT_PUBLIC_USE_INTERNAL_DOMAIN,
 }
 
-export default CONFIGS
+export default ENV_CONFIGS

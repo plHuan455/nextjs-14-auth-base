@@ -1,6 +1,6 @@
-import CONFIGS from "configs"
 import { TEXT_CONSTANTS } from "constants/common"
 import { IMAGE_ORIGIN, IMAGE_RESIZE_TOOL } from "constants/image"
+import ENV_CONFIGS from "envs"
 import Image, { ImageProps } from "next/image"
 import { useCallback, useMemo } from "react"
 
@@ -18,14 +18,15 @@ const mapResize = (resizeType: RESIZE_TYPE) => {
       return IMAGE_RESIZE_TOOL.NEXTJS
     }
     default: {
-      return CONFIGS.RESIZE_IMAGE
+      return ENV_CONFIGS.RESIZE_IMAGE
     }
   }
 }
-export interface ImageBaseProps extends ImageProps {
+export interface ImageBaseProps extends Omit<ImageProps, "alt"> {
   imageClassName?: string
   origin?: ImageOriginTypes
   resizeType?: RESIZE_TYPE
+  alt?: string
 }
 
 const ImageBase: React.FC<ImageBaseProps> = ({
