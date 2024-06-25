@@ -15,7 +15,7 @@ const setToken: Interceptor = (next) => async (req) => {
   const cookieHeader = isServer() ? await import("next/headers").then((module) => module.cookies) : undefined
   const token = isServer() ? getCookie(STORAGE_TOKEN_NAME, { cookies: cookieHeader }) : getCookie(STORAGE_TOKEN_NAME)
   req.header.set("x-language", "vi")
-  if (token) {
+  if (token && !req.header.get("Authorization")) {
     req.header.set("Authorization", "Bearer " + token)
   }
   return await next(req)

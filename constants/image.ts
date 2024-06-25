@@ -12,6 +12,7 @@ export const IMAGE_RESIZE_TOOL = {
 
 export const IMAGE_SRC = {
   logo: "/images/logo.svg",
+  avatarDefault: "/images/logo.svg",
   thumbnail: "/images/thumbnail.png",
   loginThumbnail: "/images/login-thumbnail.webp",
 }

@@ -1,7 +1,9 @@
 import { atom } from "jotai"
 
+import { IUserDetail } from "services/api/auth/types"
+
 interface IAuthState {
-  user?: { id: number; name?: string }
+  user?: IUserDetail
   token?: string
   isLogged: boolean
   isLoading: boolean

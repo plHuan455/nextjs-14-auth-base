@@ -1,12 +1,13 @@
 "use client"
 
 import { QUERY_KEY } from "@constants/query-key"
+import { COOKIE_STORAGE } from "@constants/storage"
 import { deleteCookie } from "cookies-next"
 import { useAtom } from "jotai"
 import { useQuery } from "react-query"
 
 import { authAtom } from "lib/jotai/atoms/auth"
-import { STORAGE_TOKEN_NAME } from "services/storage/constants"
+import { getMeService } from "services/api/auth"
 
 interface Props {
   children: React.ReactNode
@@ -15,15 +16,10 @@ interface Props {
 export default function ProfileWrapper({ children }: Props) {
   const [auth, setAuth] = useAtom(authAtom)
   useQuery({
-    queryKey: [QUERY_KEY.SHOP.login, auth?.token, auth?.isLoading],
+    queryKey: [QUERY_KEY.AUTH.login, auth?.token, auth?.isLoading],
     queryFn: () => {
       // GET ME
-      return {
-        user: {
-          name: "Test",
-          id: 1,
-        },
-      }
+      return getMeService()
     },
     onSuccess(data) {
       setAuth((preState) => ({
@@ -34,7 +30,7 @@ export default function ProfileWrapper({ children }: Props) {
       }))
     },
     onError() {
-      deleteCookie(STORAGE_TOKEN_NAME)
+      deleteCookie(COOKIE_STORAGE.access_token)
       setAuth({
         isLoading: false,
         isLogged: false,
@@ -42,9 +38,9 @@ export default function ProfileWrapper({ children }: Props) {
         token: undefined,
       })
     },
-    cacheTime: 0,
+    cacheTime: 5000,
     retry: 0,
     enabled: Boolean(auth?.token && auth?.isLoading),
   })
-  return <div>{children}</div>
+  return <>{children}</>
 }

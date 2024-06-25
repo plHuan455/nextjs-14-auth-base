@@ -1,4 +1,4 @@
-import JotaiProvider from "@comp/templates/jotai-provider"
+import JotaiProvider from "@lib/jotai/provider"
 import ThemeProviderBase from "@lib/theme/provider"
 
 import QueryClientWrapper from "components/templates/query-client-wrapper"
