@@ -2,11 +2,14 @@ import { IMAGE_SRC } from "@constants/image"
 
 import { myIdClientService } from "services/grpc"
 
-import { compileMetadata, formatUserSubName, parseUserMetaData } from "./helpers"
-import { LoginParams, LoginResponse, MeResponse, MetadataDataType } from "./types"
+import { compileMetadata, formatUserSubName, getUUIDV4, parseUserMetaData } from "./helpers"
+import { LoginParams, LoginResponse, MeResponse, MetadataDataType, RegisterParams, RegisterResponse } from "./types"
 
-export function updateMetadataService(prevMetadata: string, metadata: MetadataDataType) {
-  return myIdClientService.updateMetadata({ metadata: compileMetadata({ prevMetadata, metadata }) })
+export function updateMetadataService(prevMetadata: string, metadata: MetadataDataType, token?: string) {
+  return myIdClientService.updateMetadata(
+    { metadata: compileMetadata({ prevMetadata, metadata }) },
+    token ? { headers: [["Authorization", "Bearer " + token]] } : undefined,
+  )
 }
 
 export async function getMeService(token?: string): Promise<MeResponse> {
@@ -41,6 +44,32 @@ export async function loginService(params: LoginParams): Promise<LoginResponse> 
   const meRes = await getMeService(token)
   return {
     token,
+    user: meRes.user,
+  }
+}
+
+export async function registerService(params: RegisterParams): Promise<RegisterResponse> {
+  const uuid = getUUIDV4()
+  const res = await myIdClientService.signUpV2({
+    deviceName: uuid,
+    deviceId: uuid,
+    referrerId: uuid,
+    credential: {
+      case: "myId",
+      value: {
+        username: params.username,
+        confirmPassword: params.password,
+        password: params.password,
+      },
+    },
+  })
+
+  const token = res.tokenInfo.accessToken
+
+  await updateMetadataService(undefined, { fullName: params.displayName }, token)
+  const meRes = await getMeService(token)
+  return {
+    token: res.tokenInfo.accessToken,
     user: meRes.user,
   }
 }

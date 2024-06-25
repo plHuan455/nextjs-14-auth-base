@@ -31,3 +31,16 @@ export type LoginResponse = {
   token: string
   user: IUserDetail
 }
+
+// REGISTER
+export type RegisterParams = {
+  type: AuthType.username
+  username: string
+  password: string
+  displayName: string
+}
+
+export interface RegisterResponse {
+  token: string
+  user: IUserDetail
+}
