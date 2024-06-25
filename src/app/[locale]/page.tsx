@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react"
 
 export default function PageHome() {
-  return (
-    <div>PageHome</div>
-  )
+  return <div>PageHome</div>
 }

@@ -1,10 +1,16 @@
 {
-  "ShopCreate": {},
-  "General": {
-    "Metadata": {
-      "title": "Web name · Make your Life more Exciting",
-      "description": "Web name brings new colors into your life",
-      "keywords": ""
-    }
+  "login": {
+    "buttons": {
+      "login": "Sign in",
+      "reset_password": "Reset password"
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "placeholders": {
+      "password": "Password"
+    },
+    "title": "Sign in"
   }
 }

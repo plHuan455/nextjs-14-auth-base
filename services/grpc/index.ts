@@ -1,5 +1,5 @@
-import { Hime } from "@kawaii/hime-connect/hime_connect"
+import { MyID } from "@media/osha-connect/osha_connect"
 
 import { createClientService } from "./configs"
 
-export const himeClientService = createClientService(Hime)
+export const myIdClientService = createClientService(MyID)

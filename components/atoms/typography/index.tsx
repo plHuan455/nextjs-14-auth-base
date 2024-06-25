@@ -24,6 +24,7 @@ export const typographyVariants = tv(
         18: "text-[18px] leading-[24px]",
         16: "text-[1rem] leading-[20px]",
         14: "text-[14px] leading-[20px]",
+        12: "text-[12px] leading-[16px]",
       },
     },
     defaultVariants: {

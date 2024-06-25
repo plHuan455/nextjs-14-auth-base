@@ -7,7 +7,7 @@ import { cn } from "@lib/utils/cn"
 import { useTranslations } from "next-intl"
 import React from "react"
 
-export default function PageLogin() {
+export default function ViewLogin() {
   const t = useTranslations()
   return (
     <div className="flex h-full flex-col justify-between">

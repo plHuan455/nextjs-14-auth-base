@@ -13,7 +13,7 @@ const variants = tv(
         content: "font-content",
       },
       color: {
-        default: "bg-default",
+        default: "bg-default border-default",
         default_700: "bg-default-700",
         default_900: "bg-default-900",
       },
@@ -23,12 +23,16 @@ const variants = tv(
       },
       size: {
         52: "h-[52px] px-6 py-[14px]",
+        48: "h-12 px-4 text-[16px]",
         44: "h-11 px-4 text-[1rem]",
         40: "h-10 px-4 text-[1rem]",
         16: "text-[1rem] leading-[20px]",
       },
-      variant: {},
+      variant: {
+        outline: "bg-transparent border-[1px]",
+      },
     },
+    compoundVariants: [],
     defaultVariants: {
       font: "content",
       size: 52,

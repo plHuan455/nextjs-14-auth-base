@@ -18,6 +18,14 @@ const nextConfig = withNextIntl({
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/status",
+        destination: "/api/status",
+      },
+    ]
+  },
   output: "standalone",
   experimental: {
     webpackBuildWorker: true,
