@@ -10,6 +10,8 @@
     "build:staging": "cross-env NODE_ENV=test next build",
     "build:nocache": "pnpm clear && pnpm i && cross-env APP_ENV=production NODE_OPTIONS=--  =4096 PORT=8080 next build",
     "build": "cross-env BUILD_MODE=$BUILD_MODE node set-node-env.js",
+    "docker:build": "docker build -t movie .",
+    "docker:run": "docker run -p 3000:3000 movie",
     "start": "next start -p 3002",
     "clear": "rm -rf .next && rm -rf node_modules",
     "lint": "next lint",
