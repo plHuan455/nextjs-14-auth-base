@@ -2,23 +2,33 @@ import { createGrpcWebTransport as createGrpcServerTransport } from "@bufbuild/c
 import { createGrpcWebTransport as createGrpcBrowserTransport } from "@bufbuild/connect-web"
 import { MethodInfoUnary, PartialMessage, PlainMessage, ServiceType, toPlainMessage } from "@bufbuild/protobuf"
 import { CallOptions, ConnectError, Interceptor } from "@connectrpc/connect"
+import { COOKIE_STORAGE } from "@constants/storage"
 import { getCookie } from "cookies-next"
 import ENV_CONFIGS from "envs"
 
-import { isServer } from "lib/utils/nextjs-utils"
-import storage from "services/storage"
-import { STORAGE_TOKEN_NAME } from "services/storage/constants"
+import { isLocal, isServer } from "lib/utils/nextjs"
 
-import { convertBigIntToNumber, logger } from "./helpers"
+import { logger } from "./helpers"
 
 const setToken: Interceptor = (next) => async (req) => {
-  const cookieHeader = isServer() ? await import("next/headers").then((module) => module.cookies) : undefined
-  const token = isServer() ? getCookie(STORAGE_TOKEN_NAME, { cookies: cookieHeader }) : getCookie(STORAGE_TOKEN_NAME)
-  req.header.set("x-language", "vi")
-  if (token && !req.header.get("Authorization")) {
-    req.header.set("Authorization", "Bearer " + token)
+  if (req.header.get("Authorization")) {
+    return next(req)
   }
-  return await next(req)
+  try {
+    const cookieHeader = await (isServer() ? import("next/headers").then((module) => module.cookies) : undefined)
+    const token = isServer()
+      ? getCookie(COOKIE_STORAGE.access_token, { cookies: cookieHeader })
+      : getCookie(COOKIE_STORAGE.access_token)
+
+    req.header.set("x-language", "vi")
+
+    if (token) {
+      req.header.set("Authorization", "Bearer " + token)
+    }
+    return next(req)
+  } catch (error) {
+    return next(req)
+  }
 }
 
 export interface ErrorHandler {
@@ -26,24 +36,14 @@ export interface ErrorHandler {
 }
 
 export const createTransport = () => {
-  const baseUrl = ENV_CONFIGS.GRPC_SERVER
+  const baseUrl = isServer() && !isLocal() && !process.env.NEXT_PHASE ? "http://sora:8888" : ENV_CONFIGS.GRPC_SERVER
   return isServer()
-    ? createGrpcServerTransport({ baseUrl, httpVersion: "1.1", interceptors: [setToken] })
+    ? createGrpcServerTransport({
+        baseUrl,
+        httpVersion: "1.1",
+        interceptors: !Boolean(process.env.NEXT_PHASE) ? [setToken] : undefined,
+      })
     : createGrpcBrowserTransport({ baseUrl, interceptors: [setToken, logger] })
-}
-
-export const createHeader = (): Headers => {
-  const headers = new Headers()
-
-  if (!isServer()) {
-    const token = storage.getToken()
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`)
-      headers.set("x-language", "vi")
-    }
-  }
-
-  return headers
 }
 
 type AnyClientMethod = (...args: any[]) => any // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -72,7 +72,7 @@ export const createClientService = <Service extends ServiceType>(service: Servic
       options?.onHeader?.(response.header)
       options?.onTrailer?.(response.trailer)
 
-      return convertBigIntToNumber(toPlainMessage(response.message))
+      return toPlainMessage(response.message)
     }
     if (method != null) {
       client[localName] = method

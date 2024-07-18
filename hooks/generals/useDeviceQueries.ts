@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useState } from "react"
 
-import { isServer } from "lib/utils/nextjs-utils"
+import { isServer } from "lib/utils/nextjs"
 
 interface UseDeviceQueriesProps {
   min?: number
