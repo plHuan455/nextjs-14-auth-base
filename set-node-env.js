@@ -5,6 +5,6 @@ let nodeEnv = "test"
 if (buildMode === "production") {
   nodeEnv = "production"
 } else {
-  nodeEnv = buildMode || "test"
+  nodeEnv = "test"
 }
 execSync(`cross-env NODE_ENV=${nodeEnv} next build`, { stdio: "inherit" })
