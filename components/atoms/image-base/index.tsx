@@ -1,3 +1,5 @@
+'use client'
+
 import { TEXT_CONSTANTS } from "constants/common"
 import { IMAGE_ORIGIN, IMAGE_RESIZE_TOOL } from "constants/image"
 import ENV_CONFIGS from "envs"
